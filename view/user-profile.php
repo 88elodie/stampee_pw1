@@ -50,8 +50,7 @@
                 <p>{{ stamp.color_name }}</p>
                 <p>{{ stamp.condition_name }}</p>
 
-                {% for auction in auctions %}
-                {% if auction.stamp_id != stamp.stamp_id %}
+                {% if stamp.is_auction == 0 %}
                 <a href="{{path}}/auction/create?stamp_id={{ stamp.stamp_id }}">Mettre en enchère</a><br>
                 <a href="{{path}}/stamp/edit?stamp_id={{ stamp.stamp_id }}">Modifier timbre</a>
                 <form action="{{path}}/stamp/delete" method="post">
@@ -59,10 +58,11 @@
                 <input type="submit" value="supprimer ce timbre">
                 </form>
                 {% endif %}
-                {% if auction.stamp_id == stamp.stamp_id %}
+                
+                {% if stamp.is_auction %}
                 <p><b>Ce timbre est en enchère.</b></p>
                 {% endif %}
-                {% endfor %}
+                
                 </div>
                 {% endfor %}
             </div>
@@ -77,6 +77,11 @@
                 <p>Mise du moment : </p>
 
                 <a href="{{path}}/auction/fiche?auction_id={{ auction.auction_id }}">Consulter l'enchère ⟶</a>
+                <form action="{{path}}/auction/delete" method="post">
+                <input type="hidden" name="auction_id" value="{{ auction.auction_id }}">
+                <input type="hidden" name="stamp_id" value="{{ auction.stamp_id }}">
+                <input type="submit" value="supprimer cette enchère">
+                </form>
                 </div>
                 {% endfor %}
             </div>

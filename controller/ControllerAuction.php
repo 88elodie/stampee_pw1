@@ -83,6 +83,14 @@ class ControllerAuction {
             twig::render('auction-create.php', ['errors' => $errors, 'auction' => $_POST, 'user' => $user_info[0], 'stamp' => $select[0], 'date' => $date]);
         }else if($validation->isSuccess()){
             $auction = new ModelAuction;
+            $stamp = new ModelStamp;
+
+            $info = [
+                'stamp_id' => $_POST['stamp_id'],
+                'is_auction' => 1
+            ];
+
+            $stamp->update($info);
             $auction->insert($_POST);
             requirePage::redirectPage('../user/profile');
             
@@ -90,6 +98,23 @@ class ControllerAuction {
             $errors = $validation->displayErrors();
             twig::render('auction-create.php', ['errors' => $errors, 'auction' => $_POST, 'user' => $user_info[0], 'stamp' => $select[0], 'date' => $date]);
         }
+    }
+
+    public function delete(){
+        CheckSession::SessionAuth();
+        $data = ['auction_id' => $_POST['auction_id']];
+        $auction = new ModelAuction;
+        $stamp = new ModelStamp;
+        $auction->delete($data);
+
+        $info = [
+            'stamp_id' => $_POST['stamp_id'],
+            'is_auction' => '0'
+        ];
+
+
+        $stamp->update($info);
+        RequirePage::redirectPage('../user/profile');
     }
 
     public function bid() {
