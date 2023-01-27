@@ -1,0 +1,38 @@
+.profile-container {
+    margin: 40px;
+}
+
+.account-info {
+    display: block;
+    background-color: rgb(219, 212, 202);
+    padding: 20px;
+    width: fit-content;
+}
+
+.user-stamps-container {
+    margin-top: 20px;
+    display: flex;
+
+}
+
+.user-stamps-container > div {
+    margin-right: 10px;
+    display: inline-block;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 0;
+    border: 1px solid;
+    box-shadow: none;
+    background-color: none;
+    transition: box-shadow 0.5s, border-radius 0.5s, background-color 0.5s;
+}
+
+.user-stamps-container > div:hover {
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    background-color: rgb(219, 212, 202);
+    transition: box-shadow 0.5s, border-radius 0.5s, background-color 0.5s;
+    cursor: pointer;
+}

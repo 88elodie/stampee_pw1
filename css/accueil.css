@@ -1,0 +1,359 @@
+.accueil-container {
+    display: grid;
+    grid-template-columns: calc(20% - 16px) calc(20% - 16px) calc(20% - 16px) calc(20% - 16px) calc(20% - 16px);
+    grid-template-rows: auto;
+    grid-template-areas: 'banner banner banner lord-stampee lord-stampee'
+                         'choix-lord choix-lord choix-lord choix-lord choix-lord'
+                         'recherche recherche recherche recherche recherche'
+                         'featured featured featured news news';
+    margin: 20px;
+    gap: 20px;
+    
+}
+
+/* lord stampee */
+
+.lord-stampee {
+    grid-area: lord-stampee;
+    padding: 20px;
+    background-color: rgb(219, 212, 202);
+    border-radius: 0px;
+    box-shadow: none;
+    transition: border-radius 0.5s, box-shadow 0.5s;
+}
+
+.lord-stampee:hover {
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;    transition: border-radius 0.5s, box-shadow 0.5s;
+    
+}
+
+.lord-stampee h3 {
+    font-family: urw-antiqua;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.lord-stampee h3:first-child {
+    font-style: normal;
+    font-weight: 400;
+}
+
+.lord-stampee h3:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 3px;
+    text-decoration-color: rgb(233, 113, 100);
+    cursor: pointer;
+}
+
+.lord-stampee img {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 525px;
+    object-fit: cover;
+    
+}
+
+/* fonctionnement et banniere accueil */
+
+.fonctionnement {
+    grid-area: banner;
+    padding: 20px;
+    background-color: rgb(34, 48, 106);
+    color: white;
+    border-radius: 0px;
+    box-shadow: none;
+    transition: border-radius 0.5s, box-shadow 0.5s;
+}
+
+.fonctionnement:hover {
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    transition: border-radius 0.5s, box-shadow 0.5s;
+}
+
+.fonctionnement h2 {
+    font-family: urw-antiqua;
+    font-style: italic;
+    font-size: 60px;
+    backdrop-filter: blur(3px);
+    /* color: rgb(34, 48, 106); */
+    padding: 30px;
+    box-sizing: border-box;
+    height: 100%;
+    /* source : https://markdotto.com/playground/3d-text/ */
+    text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+.fonctionnement h3 {
+    font-family: urw-antiqua;
+    font-size: 35px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.fonctionnement p {
+    font-family: ff-basic-gothic-pro;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.fonctionnement p:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(233, 113, 100);
+    text-decoration-thickness: 3px;
+}
+
+.fonctionnement > section {
+    box-sizing: border-box;
+    width: 100%;
+    height: 500px;
+    
+    /* background-color: rgb(233, 113, 100); */
+    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffthmb.tqn.com%2F1LBGKoLrGTPYGRa2cGZWV1jY4RM%3D%2F1280x853%2Ffilters%3Afill(auto%2C1)%2F166963448-F-56b005105f9b58b7d01f7e61.jpg&f=1&nofb=1&ipt=69b08b711d85eda1199c51d4d2133ab9e10edd6a9a2972961425ce570f375b17&ipo=images');
+    background-size: cover;
+    background-position: center;
+}
+
+/* encheres choix du lord */
+
+.choix-lord {
+    grid-area: choix-lord;
+    padding: 20px;
+}
+
+.choix-lord section {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.choix-lord section > div {
+    box-sizing: border-box;
+    margin: 10px;
+    width: 20%;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 20px;
+}
+
+.choix-lord h4 {
+    font-family: urw-antiqua;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.choix-lord p, .choix-lord a {
+    font-family: ff-basic-gothic-pro;
+}
+
+.choix-lord p {
+    margin-top: 20px;
+    height: 80px
+}
+
+.choix-lord a {
+    color: rgb(34, 48, 106);
+    font-weight: 700;
+    position: relative;
+    top: 5px;
+}
+
+.choix-lord img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+    background-color: rgb(233, 113, 100);
+}
+
+.choix-lord span {
+    float: right;
+}
+
+/* encheres en vedette */
+
+.encheres-vedette {
+    grid-area: featured;
+    padding: 20px
+}
+
+.encheres-vedette section {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.encheres-vedette section > div {
+    box-sizing: border-box;
+    margin: 10px;
+    width: calc(33% - 20px);
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 20px;
+}
+
+.encheres-vedette h4 {
+    font-family: urw-antiqua;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.encheres-vedette img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+    background-color: rgb(233, 113, 100);
+}
+
+.encheres-vedette p, .encheres-vedette a {
+    font-family: ff-basic-gothic-pro;
+}
+
+.encheres-vedette p {
+    margin-top: 20px;
+    height: 80px
+}
+
+.encheres-vedette a {
+    color: rgb(34, 48, 106);
+    font-weight: 700;
+    position: relative;
+    top: 5px;
+}
+
+.encheres-vedette span {
+    float: right;
+}
+
+/* actualites et nouvelles */
+
+.nouvelles {
+    grid-area: news;
+    padding: 20px;
+}
+
+.nouvelles hr {
+    height: 1px;
+    border: none;
+    background-color: rgb(34, 48, 106);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.nouvelles > section {
+    margin: 10px;
+    /* source: https://codepen.io/team/css-tricks/pen/pvamyK */
+    -webkit-column-count: 2;
+    -webkit-column-gap:   10px;
+    -moz-column-count:    2;
+    -moz-column-gap:      10px;
+    column-count:         2;
+    column-gap:           10px;
+    gap: 10px;
+}
+
+.nouvelles section section {
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid;
+    box-shadow: none;
+    background-color: none;
+    transition: box-shadow 0.5s, border-radius 0.5s, background-color 0.5s;
+}
+
+.nouvelles section section:hover {
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    background-color: rgb(219, 212, 202);
+    transition: box-shadow 0.5s, border-radius 0.5s, background-color 0.5s;
+    cursor: pointer;
+}
+
+.nouvelles section p {
+    margin: 10px;
+    font-family: ff-basic-gothic-pro;
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+.nouvelles h4 {
+    font-family: urw-antiqua;
+    font-style: italic;
+    font-size: 25px;
+}
+
+/* recherche */
+
+.recherche {
+    grid-area: recherche;
+    padding: 150px 20px 150px 20px;
+    background-color: rgb(219, 212, 202);
+}
+
+.recherche-label {
+    text-align: center;
+    font-size: 35px;
+    font-family: urw-antiqua;
+    margin-bottom: 20px;
+}
+
+.recherche div {
+    background-color: rgb(34, 48, 106);
+    padding: 20px;
+    border-radius: 20px;
+    width: fit-content;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.recherche input {
+    padding: 20px;
+    font-family: ff-basic-gothic-pro;
+    color: rgb(34, 48, 106);
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.recherche input[type='text'] {
+    width: 500px;
+    color: grey;
+    margin-right: 10px;
+}
+
+.recherche input[type='submit'] {
+    background-color: azure;
+}
+
+.recherche input[type='submit']:hover {
+    cursor: pointer;
+}
+
+.recherche input[type='submit']:active {
+    transform: translateY(.125rem);
+}

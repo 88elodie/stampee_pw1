@@ -1,0 +1,96 @@
+nav {
+    position: sticky;
+    width: 100%;
+}
+
+nav a {
+    color: rgb(34, 48, 106);
+    text-decoration: none;
+}
+
+nav .logo {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    font-family: alize;
+    font-size: 35px;
+}
+
+.square {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(233, 113, 100);
+    margin: 0px 10px -5px 0px;
+}
+
+.nav-item, .menu-deroulant {
+    display: inline-block;
+    font-family: urw-antiqua;
+}
+
+.liens-nav {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-top: 12px;
+    padding-right: 15px;
+    font-size: 20px;
+}
+
+.liens-nav a:hover {
+    color: rgb(233, 113, 100);
+}
+
+.nav-item {
+    margin: 20px;
+}
+
+.menu-deroulant .liens-nav-deroulant {
+    display: none;
+    position: absolute;
+    background-color: rgb(242, 238, 232);
+    padding-left: 20px;
+    padding-bottom: 20px;
+    border-style: solid;
+    border-color: rgb(34, 48, 106);
+    border-width: 1px;
+    z-index: 5;
+}
+
+.liens-nav-deroulant {
+    margin-left: 20px;
+}
+
+.liens-nav-deroulant a {
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.menu-deroulant:hover .liens-nav-deroulant {
+    display: flex;
+    flex-flow: column nowrap;
+    z-index: 5;
+}
+
+hr.nav-line {
+    height: 1px;
+    border: none;
+    background-color: rgb(34, 48, 106);
+    margin: 0 20px 0 20px;
+}
+
+.breadcrumbs {
+    font-family: ff-basic-gothic-pro;
+    cursor: pointer;
+}
+
+.favoris {
+    font-family: ff-basic-gothic-pro;
+    cursor: pointer;
+    background-color: rgb(219, 212, 202);
+    border-radius: 20px;
+    padding: 15px;
+    position: absolute;
+    right: 20px;
+}
