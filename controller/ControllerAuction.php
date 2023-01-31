@@ -21,6 +21,7 @@ class ControllerAuction {
     }
 
     public function fiche(){
+        include('cron/auction_manage.php');
         if(CheckSession::SessionConnected()){
             $session = 1;
         }else {

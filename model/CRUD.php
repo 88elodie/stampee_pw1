@@ -60,12 +60,12 @@ abstract class CRUD extends PDO{
     public function checkAuctionTime($datetime, $column){
         if($column == 'start_date'){
             $sql = "SELECT * FROM $this->table
-            WHERE $column >= $datetime
-            AND status = 0";
+            WHERE $column <= STR_TO_DATE('$datetime', '%Y-%m-%d %H:%i:%s')
+            AND `status` = 0";
         }else if($column == 'end_date'){
             $sql = "SELECT * FROM $this->table
-            WHERE $column >= $datetime
-            AND status = 1";
+            WHERE $column <= STR_TO_DATE('$datetime', '%Y-%m-%d %H:%i:%s')
+            AND `status` = 1";
         }
         $query = $this->query($sql);
         return $query->fetchAll();
