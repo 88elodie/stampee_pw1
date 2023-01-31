@@ -26,10 +26,16 @@ abstract class CRUD extends PDO{
         }else if($this->table == 'auction'){
             $sql = "SELECT * FROM $this->table
             LEFT OUTER JOIN stamp ON $this->table.stamp_id = stamp.stamp_id";
+        }else if($this->table == 'user_bid' && isset($_GET['auction_id'])){
+            $auction_id = $_GET['auction_id'];
+            $sql = "SELECT * FROM $this->table
+            LEFT OUTER JOIN user ON $this->table.bidder_id = user.user_id
+            WHERE auction_bid_id = $auction_id
+            AND bid_amount = (select max(bid_amount))";
         }else {
             $sql = "SELECT * FROM $this->table";
         }
-    
+       
         $query = $this->query($sql);
         return $query->fetchAll();
     }
@@ -47,6 +53,20 @@ abstract class CRUD extends PDO{
             WHERE seller_id = $user_id";
         }
     
+        $query = $this->query($sql);
+        return $query->fetchAll();
+    }
+
+    public function checkAuctionTime($datetime, $column){
+        if($column == 'start_date'){
+            $sql = "SELECT * FROM $this->table
+            WHERE $column >= $datetime
+            AND status = 0";
+        }else if($column == 'end_date'){
+            $sql = "SELECT * FROM $this->table
+            WHERE $column >= $datetime
+            AND status = 1";
+        }
         $query = $this->query($sql);
         return $query->fetchAll();
     }

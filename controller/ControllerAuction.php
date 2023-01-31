@@ -3,6 +3,7 @@ RequirePage::requireModel('CRUD');
 RequirePage::requireModel('User');
 RequirePage::requireModel('Stamp');
 RequirePage::requireModel('Auction');
+RequirePage::requireModel('Bid');
 RequirePage::requireLibrary('Validation');
 RequirePage::requireLibrary('CheckSession');
 
@@ -26,16 +27,24 @@ class ControllerAuction {
             $session = 0;
         }
         $auction = new ModelAuction;
-        $user = new ModelUser;
+        $bid = new ModelBid;
 
-        $user_info = $user->select();
         $select = $auction->select();
+        $bid_info = $bid->select();
 
-        return Twig::render('auction-fiche.php', ['session' => $session, 'auction' => $select[0], 'user' => $user_info[0]]);
+        if(isset($_SESSION['user_id'])){
+            $user = new ModelUser;
+            $user_info = $user->select();
+            $user_info = $user_info[0];
+        }else {
+            $user_info = 0;
+        }
+
+        return Twig::render('auction-fiche.php', ['session' => $session, 'auction' => $select[0], 'user' => $user_info, 'bid' => $bid_info]);
     }
 
     public function create(){
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
         $user = new ModelUser;
         $stamp = new ModelStamp;
 
@@ -48,7 +57,7 @@ class ControllerAuction {
     }
 
     public function store(){
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
         $validation = new Validation;
         extract($_POST);
         $start_date = $_POST['start_date'];
@@ -118,7 +127,12 @@ class ControllerAuction {
     }
 
     public function bid() {
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
+        if(CheckSession::SessionConnected()){
+            $session = 1;
+        }else {
+            $session = 0;
+        }
         $validation = new Validation;
         extract($_POST);
         $bid_amount = $_POST['bid_amount'];
@@ -127,13 +141,38 @@ class ControllerAuction {
         
         $user = new ModelUser;
         $auction = new ModelAuction;
+        $bid = new ModelBid;
 
         $user_info = $user->select();
         $select = $auction->select();
+        $bid_info = $bid->select();
 
-        if($_SESSION['user_id'] == $_POST['bidder_id']){
+        if($_SESSION['user_id'] == $select[0]['seller_id']){
             $errors = "<p>Vous ne pouvez pas miser sur votre propre enchère</p>";
-            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0]]);
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
+        }else if($_POST['bidder_id'] == $bid_info[0]['bidder_id']){
+            $errors = "<p>Vous avez déjà misé sur cette enchère.</p>";
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
+        }else if($select[0]['has_bid'] && $_POST['bid_amount'] <= $bid_info[0]['bid_amount']){
+            $errors = "<p>Vous devez entrer une mise plus haute que la mise actuelle</p>";
+        }else if($validation->isSuccess()){
+            $auction = new ModelAuction;
+            $bid = new ModelBid;
+
+            $bid->insert($_POST);
+            if(!$select[0]['has_bid']){
+                $info = [
+                    'auction_id' => $_POST['auction_bid_id'],
+                    'has_bid' => 1
+                ];
+                $auction->update($info);
+            }
+            
+            requirePage::redirectPage('../auction/fiche?auction_id='.$_POST['auction_bid_id']);
+            
+        }else{
+            $errors = $validation->displayErrors();
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
         }
 
     }

@@ -59,11 +59,18 @@
                 <span>Début : {{ auction.start_date }}</span><br>
                 <span>Fin : {{ auction.end_date }}</span><br>
                 <span>Prix plancher : {{ auction.floor_price }} $</span>
-                <p>Enchère actuelle : </p>
-                <form action="{{path}}/auction/bid" method="post">
+                <p>Enchère actuelle : 
+                    {% if auction.has_bid == 0 %}
+                        Aucune
+                    {% endif %}
+                    {% if auction.has_bid == 1 %}
+                        {{ bid[0].bid_amount }} $ par {{ bid[0].username }}
+                    {% endif %}
+                </p>
+                <form action="{{path}}/auction/bid?auction_id={{ auction.auction_id }}" method="post">
                 <input type="hidden" name="bidder_id" value="{{ user.user_id }}">
-                <input type="hidden" name="auction_id" value="{{ auction.auction_id }}">
-                <input type="number" name="bid_amount" id="bid_amount" min="{{ auction.floor_price + 1}}">
+                <input type="hidden" name="auction_bid_id" value="{{ auction.auction_id }}">
+                <input type="number" name="bid_amount" id="bid_amount">
                 <input type="submit" value="Miser">
                 </form>
                 {% if errors is defined %}

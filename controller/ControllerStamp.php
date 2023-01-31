@@ -10,7 +10,7 @@ RequirePage::requireLibrary('CheckSession');
 class ControllerStamp {
 
     public function create(){
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
         $user = new ModelUser;
         $color = new ModelColors;
         $condition = new ModelCondition;
@@ -24,7 +24,7 @@ class ControllerStamp {
     }
 
     public function store(){
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
         $validation = new Validation;
         extract($_POST);
         $title = $_POST['title'];
@@ -76,7 +76,7 @@ class ControllerStamp {
     }
 
     public function update(){
-        CheckSession::SessionConnected();
+        CheckSession::SessionAuth();
         $validation = new Validation;
         extract($_POST);
         $title = $_POST['title'];
