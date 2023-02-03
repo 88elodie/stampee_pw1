@@ -27,6 +27,7 @@ class ControllerStamp {
         CheckSession::SessionAuth();
         $validation = new Validation;
         extract($_POST);
+        // post data
         $title = $_POST['title'];
         $description = $_POST['description'];
         $country = $_POST['origin_country'];
@@ -34,7 +35,9 @@ class ControllerStamp {
         $print_num = $_POST['print_num'];
         $dimensions = $_POST['dimensions'];
         $color = $_POST['color'];
+        // -------
 
+        // validation
         $validation->name('title')->value($title)->pattern('text')->required()->max(100);
         $validation->name('description')->value($description)->pattern('text')->required();
         $validation->name('country')->value($country)->required();
@@ -42,7 +45,9 @@ class ControllerStamp {
         $validation->name('print_num')->value($print_num)->pattern('int');
         $validation->name('dimensions')->value($dimensions)->pattern('text')->required();
         $validation->name('color')->value($color)->required();
+        // --------
 
+        // init models and get db data
         $user = new ModelUser;
         $color = new ModelColors;
         $condition = new ModelCondition;
@@ -50,6 +55,7 @@ class ControllerStamp {
         $user_info = $user->select();
         $colors = $color->select();
         $conditions = $condition->select();
+        // --------
 
         if($validation->isSuccess()){
             $stamp = new ModelStamp;

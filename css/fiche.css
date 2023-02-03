@@ -145,6 +145,12 @@
     cursor: pointer;
 }
 
+.photos-min img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
 .photo-infos > div {
     box-sizing: border-box;
     width: 50%;

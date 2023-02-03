@@ -4,6 +4,7 @@
 @import url('./catalogue.css');
 @import url('./fiche.css');
 @import url('./profile.css');
+@import url('./login.css');
 
 * {
     margin: 0;

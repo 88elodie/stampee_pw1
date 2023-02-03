@@ -17,12 +17,13 @@
         <div class="liens-nav">
             <a href="#" class="nav-item">fonctionnement</a>
             <div class="menu-deroulant">
-                <a href="{{path}}/auction/catalogue" class="nav-item nav-item-deroulant">enchères</a>
+                <a href="{{path}}/auction/catalogue?status=all" class="nav-item nav-item-deroulant">enchères</a>
                 <div class="liens-nav-deroulant">
-                    <a href="#">actives</a>
+                    <a href="{{path}}/auction/catalogue?status=active">actives</a>
                     <a href="#">choix du lord</a>
                     <a href="#">en vedette</a>
-                    <a href="#">passées</a>
+                    <a href="{{path}}/auction/catalogue?status=upcoming">futures</a>
+                    <a href="{{path}}/auction/catalogue?status=expired">passées</a>
                 </div>
             </div>
             <a href="#" class="nav-item">actualités</a>
@@ -43,13 +44,15 @@
         <section class="photo-infos">
             <div class="photo">
                 <figure class="main-photo">
-                    <img src="../../media/stamp1.jpg" alt="timbre">
+                    <img src="{{ images[0].image_src }}" alt="timbre">
                     <div class="nav-gauche">&lt;</div>
                     <div class="nav-droite">&gt;</div>
                     <div class="loupe"><div class="loupe-icone"></div></div>
                 </figure>
                 <figure class="photos-min">
-                    <div></div><div></div><div></div><div></div>
+                    <div><img src="{{ images[1].image_src }}"></div>
+                    <div><img src="{{ images[2].image_src }}"></div>
+                    <div><img src="{{ images[3].image_src }}"></div>
                 </figure>
             </div>
             <div class="infos">
@@ -59,6 +62,7 @@
                 <span>Début : {{ auction.start_date }}</span><br>
                 <span>Fin : {{ auction.end_date }}</span><br>
                 <span>Prix plancher : {{ auction.floor_price }} $</span>
+                <!-- mise -->
                 <p>Enchère actuelle : 
                     {% if auction.has_bid == 0 %}
                         Aucune
@@ -67,12 +71,28 @@
                         {{ bid[0].bid_amount }} $ par {{ bid[0].username }}
                     {% endif %}
                 </p>
+                <!-- ------- -->
+                <!-- enchère future -->
+                {% if auction.status == 0 %}
+                <p>Revenez le {{ auction.start_date }} pour miser sur cette enchère.</p>
+                {% endif %}
+                <!-- -------------- -->
+                <!-- enchère active -->
+                {% if auction.status == 1 %}
                 <form action="{{path}}/auction/bid?auction_id={{ auction.auction_id }}" method="post">
                 <input type="hidden" name="bidder_id" value="{{ user.user_id }}">
                 <input type="hidden" name="auction_bid_id" value="{{ auction.auction_id }}">
                 <input type="number" name="bid_amount" id="bid_amount">
                 <input type="submit" value="Miser">
                 </form>
+                {% endif %}
+                <!-- -------------- -->
+                <!-- enchère terminée -->
+                {% if auction.status == 2 %}
+                <p>Cette enchère est terminée.</p>
+                <p>Mise gagnante : {{ bid[0].bid_amount }} $ par {{ bid[0].username }}</p>
+                {% endif %}
+                <!-- ---------------- -->
                 {% if errors is defined %}
                 <span class="error">{{ errors|raw }}</span>
                 {% endif %}

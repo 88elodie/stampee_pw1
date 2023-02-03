@@ -25,13 +25,19 @@ abstract class CRUD extends PDO{
             WHERE auction_id = $auction_id";
         }else if($this->table == 'auction'){
             $sql = "SELECT * FROM $this->table
-            LEFT OUTER JOIN stamp ON $this->table.stamp_id = stamp.stamp_id";
+            LEFT OUTER JOIN stamp ON $this->table.stamp_id = stamp.stamp_id
+            LEFT OUTER JOIN stamp_images on $this->table.stamp_id = stamp_images.stamp_id
+            WHERE main_image = 1";
         }else if($this->table == 'user_bid' && isset($_GET['auction_id'])){
             $auction_id = $_GET['auction_id'];
             $sql = "SELECT * FROM $this->table
             LEFT OUTER JOIN user ON $this->table.bidder_id = user.user_id
             WHERE auction_bid_id = $auction_id
             AND bid_amount = (select max(bid_amount))";
+        }else if($this->table == 'stamp_images' && isset($_GET['stamp_id'])){
+            $stamp_id = $_GET['stamp_id'];
+            $sql = "SELECT * FROM $this->table
+            WHERE stamp_id = $stamp_id";
         }else {
             $sql = "SELECT * FROM $this->table";
         }
@@ -53,6 +59,17 @@ abstract class CRUD extends PDO{
             WHERE seller_id = $user_id";
         }
     
+        $query = $this->query($sql);
+        return $query->fetchAll();
+    }
+
+    public function getAuctionsData(){
+        $sql = "SELECT * FROM $this->table
+        LEFT OUTER JOIN stamp AS `a` ON $this->table.stamp_id = a.stamp_id
+        LEFT OUTER JOIN colors ON a.color = colors.color_id
+        LEFT OUTER JOIN condition_quality ON a.condition_quality = condition_quality.condition_quality_id
+        LEFT OUTER JOIN stamp_images on $this->table.stamp_id = stamp_images.stamp_id
+        WHERE main_image = 1";
         $query = $this->query($sql);
         return $query->fetchAll();
     }

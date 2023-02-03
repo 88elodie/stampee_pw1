@@ -17,12 +17,13 @@
         <div class="liens-nav">
             <a href="#" class="nav-item">fonctionnement</a>
             <div class="menu-deroulant">
-                <a href="{{path}}/auction/catalogue" class="nav-item nav-item-deroulant">enchères</a>
+                <a href="{{path}}/auction/catalogue?status=all" class="nav-item nav-item-deroulant">enchères</a>
                 <div class="liens-nav-deroulant">
-                    <a href="#">actives</a>
+                    <a href="{{path}}/auction/catalogue?status=active">actives</a>
                     <a href="#">choix du lord</a>
                     <a href="#">en vedette</a>
-                    <a href="#">passées</a>
+                    <a href="{{path}}/auction/catalogue?status=upcoming">futures</a>
+                    <a href="{{path}}/auction/catalogue?status=expired">passées</a>
                 </div>
             </div>
             <a href="#" class="nav-item">actualités</a>
@@ -40,45 +41,60 @@
         <span class="breadcrumbs">accueil > enchères</span>
         <span class="favoris"> mes favoris </span>
 
+        <form action="{{path}}/auction/catalogue" method="get">
+            <input type="hidden" name="status" value={{status}}>
+            <label for="search"></label>
+            <input type="text" name="search" id="search">
+            <input type="submit" value="Rechercher">
+        </form>
+
         <h2>Enchères</h2>
+        <div class="sort">
+            <p>Date de fin</p><a href="{{path}}/auction/catalogue?status={{status}}&sort=end_date&order=asc">plus tôt</a> <a href="{{path}}/auction/catalogue?status={{status}}&sort=end_date&order=desc">plus tard</a>
+            <p>Prix plancher</p><a href="{{path}}/auction/catalogue?status={{status}}&sort=floor_price&order=asc">moins cher</a> <a href="{{path}}/auction/catalogue?status={{status}}&sort=floor_price&order=desc">plus cher</a>
+        </div>
         <article>
             <aside class="filtres">
                 <div class="menu-filtres">
                     <h4>Filtres</h4>
                     <div class="filtre">
-                        <h5>Années</h5>
+                        <h5>Certificat</h5>
                         <div class="filtre-items">
-                            <p>1700-1799</p>
-                            <p>1800-1899</p>
-                            <p>1900-1999</p>
-                            <p>2000-2023</p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=certificate&value=1">Oui</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=certificate&value=0">Non</a></p>
                         </div>
                     </div>
                     <div class="filtre">
                         <h5>Pays</h5>
                         <div class="filtre-items">
-                            <p>Canada</p>
-                            <p>États-Unis</p>
-                            <p>Australie</p>
-                            <p>Angleterre</p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=origin_country&value=canada">Canada</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=origin_country&value=usa">États-Unis</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=origin_country&value=mexico">Mexique</a></p>
                         </div>
                     </div>
                     <div class="filtre">
                         <h5>Couleur</h5>
                         <div class="filtre-items">
-                            <p>Rouge</p>
-                            <p>Bleu</p>
-                            <p></p>
-                            <p></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Bleu">Bleu</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Vert">Vert</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Jaune">Jaune</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Violet">Violet</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Rouge">Rouge</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Orange">Orange</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Blanc">Blanc</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Noir">Noir</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Gris">Gris</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=color_name&value=Multi">Multi</a></p>
                         </div>
                     </div>
                     <div class="filtre">
                         <h5>Condition</h5>
                         <div class="filtre-items">
-                            <p>condition 1</p>
-                            <p>condition 2</p>
-                            <p>condition 3</p>
-                            <p>condition 4</p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=condition_name&value=Parfaite">Parfaite</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=condition_name&value=Excellente">Excellente</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=condition_name&value=Bonne">Bonne</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=condition_name&value=Moyenne">Moyenne</a></p>
+                            <p><a href="{{path}}/auction/catalogue?status={{status}}&filter=condition_name&value=Endommagé">Endommagé</a></p>
                         </div>
                     </div>
                 </div>
@@ -86,7 +102,7 @@
             <section class="encheres">
                 {% for auction in auctions %}
                 <div>
-                    <img src="../../media/stamp1.jpg" alt="">
+                    <img src="{{ auction.image_src }}" alt="">
                     <p>
                         {{ auction.title }}
                     </p>
@@ -94,7 +110,7 @@
                     <span>Fin : {{ auction.end_date }}</span>
                     <span>Prix plancher : {{ auction.floor_price }} $</span>
                     <div>
-                        <a href="{{path}}/auction/fiche?auction_id={{auction.auction_id}}">Consulter >></a>
+                        <a href="{{path}}/auction/fiche?auction_id={{auction.auction_id}}&stamp_id={{auction.stamp_id}}">Consulter >></a>
                         <span><svg version="1.1" class="heart" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                             viewBox="0 0 471.701 471.701" style="enable-background:new 0 0 471.701 471.701;
                                     height: 25px;" xml:space="preserve">

@@ -47,8 +47,7 @@
 .encheres img {
     width: 100%;
     height: 225px;
-    object-fit: cover;
-    background-color: rgb(233, 113, 100);
+    object-fit: contain;
 }
 
 .encheres p, .encheres a {

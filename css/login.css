@@ -1,0 +1,67 @@
+.login-container {
+    margin: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login-container > section {
+    box-sizing: border-box;
+    width: calc(50% - 20px);
+    float: left;
+    height: 700px;
+}
+
+.login-container > section:first-of-type {
+    background-color: rgb(219, 212, 202);
+    border-radius: 20px 0px 0px 20px;
+    background-image: url('../media/stamp-bg2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-container > section:first-of-type > p {
+    backdrop-filter: blur(3px);
+    height: calc(100% - 40px);
+    border-radius: 20px 0px 0px 20px;
+    font-family: urw-antiqua;
+    font-style: italic;
+    font-size: 60px;
+    padding: 20px;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+/* .login-container > section:first-of-type div {
+    margin-left: 200px;
+    display: inline-block;
+    background-color: white;
+    width: 1px;
+    height: 200px;
+} */
+
+.login-container > section:first-of-type a {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.login-container > section:last-of-type {
+    background-color: rgb(219, 212, 202);
+    border-radius: 0px 20px 20px 0px;
+    padding: 20px;
+    text-align: right;
+}

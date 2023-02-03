@@ -20,7 +20,6 @@ foreach($auctions as $auction){
 }
 
 $auctions = $auction->checkAuctionTime($datetime, 'end_date');
-print_r($auctions);
 
 if($auctions){
 foreach($auctions as $auction){
