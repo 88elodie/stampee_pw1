@@ -35,7 +35,7 @@ class ControllerAuction {
     }
 
     public function fiche(){
-        
+        include('cron/auction_manage.php');
         if(CheckSession::SessionConnected()){
             $session = 1;
         }else {
@@ -222,17 +222,21 @@ class ControllerAuction {
         $user = new ModelUser;
         $auction = new ModelAuction;
         $bid = new ModelBid;
+        $image = new ModelImage;
 
         $user_info = $user->select();
         $select = $auction->select();
         $bid_info = $bid->select();
+        $images = $image->select();
 
         if($_SESSION['user_id'] == $select[0]['seller_id']){
             $errors = "<p>Vous ne pouvez pas miser sur votre propre enchère</p>";
-            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
+            $_GET['stamp_id'] = $select[0]['stamp_id'];
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info, 'images' => $images]);
         }else if($_POST['bidder_id'] == $bid_info[0]['bidder_id']){
             $errors = "<p>Vous avez déjà misé sur cette enchère.</p>";
-            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
+
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info, 'images' => $images]);
         }else if($select[0]['has_bid'] && $_POST['bid_amount'] <= $bid_info[0]['bid_amount']){
             $errors = "<p>Vous devez entrer une mise plus haute que la mise actuelle</p>";
         }else if($validation->isSuccess()){
@@ -248,11 +252,11 @@ class ControllerAuction {
                 $auction->update($info);
             }
             
-            requirePage::redirectPage('../auction/fiche?auction_id='.$_POST['auction_bid_id']);
+            requirePage::redirectPage('../auction/fiche?auction_id='.$_POST['auction_bid_id']."&stamp_id=".$select[0]['stamp_id']);
             
         }else{
             $errors = $validation->displayErrors();
-            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info]);
+            twig::render('auction-fiche.php', ['errors' => $errors, 'auction' => $select[0], 'user' => $user_info[0], 'session' => $session, 'bid' => $bid_info, 'images' => $images]);
         }
 
     }
